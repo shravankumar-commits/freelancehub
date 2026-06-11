@@ -1,44 +1,42 @@
 package com.freelancehub.service;
 import java.util.*;
+//import org.springframework.beans.factory.annotation.AutoWired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.freelancehub.model.User;
+import com.freelancehub.repository.UserRepository;
 @Service
-public class UserService 
+public class UserService
 {
-	private List<User>users=new ArrayList<>();
-	public UserService() 
-	{
-		users.add(new User(1L, "Shravan Kumar", "Java Dev"));
-        users.add(new User(2L, "Harsha", "Frontend Dev"));
-        users.add(new User(3L, "Akshith", "Backend Dev"));
-	}
+	@Autowired
+	private UserRepository userRepository;
 	public List<User>getAllUsers()
 	{
-		return users;
+		return userRepository .findAll();
 	}
-	public User addUser(User user)
+	public User addUser(User user) 
 	{
-		users.add(user);
-		return user;
+		return userRepository.save(user);
 	}
-	public User updateUser(Long id, User updatedUser)
+	public User getUserById(Long id) 
 	{
-	    for(User user : users)
-	    {
-	        if(user.getId().equals(id))
-	        {
-	            user.setName(updatedUser.getName());
-	            user.setRole(updatedUser.getRole());
-
-	            return user;
-	        }
-	    }
-
-	    return null;
+		return userRepository.findById(id).orElse(null);
 	}
 	public String deleteUser(Long id) 
 	{
-		users.removeIf(user->user.getId().equals(id));
-		return "USer deleted successfully";
+	    	userRepository.deleteById(id);
+	    	return "User deleted successfully";
+    }
+	public User updateUser(Long id,User updateUser)
+	{
+		User existingUser=userRepository.findById(id).orElse(null);
+		if(existingUser !=null) 
+		{
+			existingUser.setName(updateUser.getName());
+			existingUser.setRole(updateUser.getRole());
+			return userRepository.save(existingUser);
+		}
+		return null;
 	}
+	 
 }

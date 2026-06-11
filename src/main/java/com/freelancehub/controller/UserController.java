@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.*;
 
 @RestController
-public class HelloController {
+public class UserController {
 	/*@GetMpping("/register")
 	public User registerUser(@RequestBody User user) 
 	{
@@ -47,18 +47,8 @@ public class HelloController {
     public User getUserById(@PathVariable Long id) 
     {
 
-        if(id == 1)
-        {
-            return new User(1L, "ShravanKumar", "Java Dev");
-        }
-        else if(id == 2) 
-        {
-            return new User(2L, "Harsha", "Frontend Dev");
-        }
-        else 
-        {
-            return new User(3L, "Aksthith", "Backend Dev");
-        }
+       // return userService.getUserById(id);
+    	return userService.getUserById(id);
     }
     @PostMapping("/users")
     public User addUser(@RequestBody User user) 
