@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.freelancehub.service.UserService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import jakarta.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -51,7 +52,7 @@ public class UserController {
     	return userService.getUserById(id);
     }
     @PostMapping("/users")
-    public User addUser(@RequestBody User user) 
+    public User addUser(@Valid @RequestBody User user) 
     {
     	return userService.addUser(user);
     }
