@@ -8,10 +8,18 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String,String>handleValidationException(MethodArgumentNotValidException ex)
 	{
-		Map<String, String>errors=new HashMap<>();
+		Map<String, String>errors=new LinkedHashMap<>();
 		ex.getBindingResult()
 		  .getFieldErrors()
-		  .forEach(error ->errors.put(error.getField(),error.getDefaultMessage()));
-		 return errors;
+		  .forEach(error -> {
+	          if (!errors.containsKey(error.getField())) {
+	              errors.put(
+	                  error.getField(),
+	                  error.getDefaultMessage()
+	              );
+	          }
+	      });
+
+	    return errors;
 	}
 }

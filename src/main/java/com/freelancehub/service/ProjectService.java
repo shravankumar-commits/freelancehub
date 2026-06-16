@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.freelancehub.model.Project;
 import com.freelancehub.repository.ProjectRepository;
+import com.freelancehub.model.User;
+import com.freelancehub.repository.UserRepository;
 @Service
 public class ProjectService {
 @Autowired
@@ -12,8 +14,28 @@ public List<Project> getAllProjects()
 {
     return projectRepository.findAll();
 }
-public Project addProject(Project project) 
+@Autowired
+private UserRepository userRepository;
+
+public Project addProject(Project project)
 {
-	return projectRepository.save(project);
+    Long userId = project.getUser().getId();
+
+    User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    project.setUser(user);
+
+    return projectRepository.save(project);
+}
+
+public Project getProjectById(Long id)
+{
+    return projectRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Project not found"));
+}
+public void deleteProject(Long id)
+{
+    projectRepository.deleteById(id);
 }
 }

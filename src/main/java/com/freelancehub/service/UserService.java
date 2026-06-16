@@ -20,23 +20,22 @@ public class UserService
 	}
 	public User getUserById(Long id) 
 	{
-		return userRepository.findById(id).orElse(null);
+		return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 	}
 	public String deleteUser(Long id) 
 	{
 	    	userRepository.deleteById(id);
 	    	return "User deleted successfully";
     }
-	public User updateUser(Long id,User updateUser)
+	public User updateUser(Long id, User updatedUser)
 	{
-		User existingUser=userRepository.findById(id).orElse(null);
-		if(existingUser !=null) 
-		{
-			existingUser.setName(updateUser.getName());
-			existingUser.setRole(updateUser.getRole());
-			return userRepository.save(existingUser);
-		}
-		return null;
+	    User existingUser = userRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+
+	    existingUser.setName(updatedUser.getName());
+	    existingUser.setRole(updatedUser.getRole());
+
+	    return userRepository.save(existingUser);
 	}
 	 
 }

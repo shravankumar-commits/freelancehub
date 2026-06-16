@@ -5,7 +5,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import java.util.List;
+import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
+
 @Table(name="users")
 public class User {
 	@Id
@@ -15,7 +19,8 @@ public class User {
 	private String name;
 	@NotBlank(message="Role cannot be empty")
 	private String role;
-	
+	@OneToMany(mappedBy = "user")
+	private List<Project> projects;
 	public User() 
 	{
 		
@@ -49,6 +54,15 @@ public class User {
 	public void setRole(String role) 
 	{
 		this.role=role;
+	}
+	public List<Project> getProjects()
+	{
+	    return projects;
+	}
+
+	public void setProjects(List<Project> projects)
+	{
+	    this.projects = projects;
 	}
 }
 

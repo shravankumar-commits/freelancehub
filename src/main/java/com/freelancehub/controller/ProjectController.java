@@ -14,9 +14,30 @@ public class ProjectController {
 	    public List<Project> getProjects() {
 	        return projectService.getAllProjects();
 	    }
+	 	
+	 @PostMapping("/projects")
+	 public Project addProject(@Valid @RequestBody Project project) {
+	     return projectService.addProject(project);
+	 }
+	    
+	    
+	    @GetMapping("/projects/{id}")
+	    public Project getProject(@PathVariable Long id) 
+	    {
+	    	return projectService.getProjectById(id);
+	    }
+	    @PutMapping("/projects/{id}")
+	    public Project updateProject(
+	            @PathVariable Long id,
+	            @RequestBody Project project) {
 
-	    @PostMapping("/projects")
-	    public Project addProject(@RequestBody Project project) {
+	        project.setId(id);
 	        return projectService.addProject(project);
+	    }
+	    @DeleteMapping("/projects/{id}")
+	    public String deleteProject(@PathVariable Long id)
+	    {
+	        projectService.deleteProject(id);
+	        return "Project deleted successfully";
 	    }
 }
