@@ -9,6 +9,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "projects")
 public class Project {
@@ -25,6 +28,9 @@ private Double budget;
 @ManyToOne
 @JoinColumn(name="user_id")
 private User user;
+@JsonIgnore
+@OneToMany(mappedBy = "project")
+private List<Bid> bids;
 public Project() 
 {
 }
@@ -77,6 +83,14 @@ public void setUser(User user)
 {
     this.user = user;
 }
+public List<Bid> getBids()
+{
+    return bids;
+}
 
+public void setBids(List<Bid> bids)
+{
+    this.bids = bids;
+}
 }
 
