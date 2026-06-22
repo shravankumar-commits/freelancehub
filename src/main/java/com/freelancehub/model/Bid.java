@@ -14,7 +14,9 @@ public class Bid {
 	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
-	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	public Bid() 
 	{
 		
@@ -56,5 +58,13 @@ public class Bid {
 		public void setProject(Project project) 
 		{
 			this.project = project;
+		}
+		public User getUser() 
+		{
+			return user;
+		}
+		public void setUser(User user) 
+		{
+			this.user=user;
 		}
 }

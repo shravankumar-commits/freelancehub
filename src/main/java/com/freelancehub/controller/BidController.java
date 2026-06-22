@@ -34,4 +34,15 @@ public class BidController {
         bidService.deleteBid(id);
         return "Bid deleted successfully";
     }
+    @GetMapping("/users/{userId}/bids")
+    public List<Bid> getBidsByUser(@PathVariable Long userId)
+    {
+        return bidService.getBidsByUserId(userId);
+    }
+
+    @GetMapping("/projects/{projectId}/bids")
+    public List<Bid> getBidsByProject(@PathVariable Long projectId)
+    {
+        return bidService.getBidsByProjectId(projectId);
+    }
 }

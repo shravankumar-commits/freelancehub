@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import jakarta.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List; 
 @Entity
 
 @Table(name="users")
@@ -21,6 +22,9 @@ public class User {
 	private String role;
 	@OneToMany(mappedBy = "user")
 	private List<Project> projects;
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List <Bid>bids;
 	public User() 
 	{
 		
@@ -63,6 +67,14 @@ public class User {
 	public void setProjects(List<Project> projects)
 	{
 	    this.projects = projects;
+	}
+	public List <Bid>getBids()
+	{
+		return bids;
+	}
+	public void setBids(List<Bid>bids) 
+	{
+		this.bids = bids;
 	}
 }
 
