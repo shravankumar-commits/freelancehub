@@ -1,4 +1,5 @@
 package com.freelancehub.model;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,11 @@ public class User {
 	private String role;
 	@OneToMany(mappedBy = "user")
 	private List<Project> projects;
+	@Column(unique = true)
+	@NotBlank(message = "Email cannot be empty")
+	private String email;
+	@NotBlank(message = "Password cannot be empty")
+	private String password;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List <Bid>bids;
@@ -32,8 +38,11 @@ public class User {
 	public User(Long id,String name,String role) 
 	{
 		this.id=id;
-		this.name=name;	
+		this.name=name;
+		this.email=email;
+		this.password=password;
 		this.role=role;
+		
 	}
 	public Long getId() 
 	{
@@ -75,6 +84,22 @@ public class User {
 	public void setBids(List<Bid>bids) 
 	{
 		this.bids = bids;
+	}
+	public String getEmail() 
+	{
+		return email;
+	}
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+	public String getPassword() 
+	{
+		return password;
+	}
+	public void setPassword(String password) 
+	{
+		this.password=password;
 	}
 }
 

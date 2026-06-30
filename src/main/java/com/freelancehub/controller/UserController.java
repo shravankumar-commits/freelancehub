@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.freelancehub.service.UserService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import com.freelancehub.dto.LoginRequest;
 import jakarta.validation.Valid;
 import java.util.*;
 
@@ -33,7 +34,7 @@ public class UserController {
     @PostMapping ("/register")
     public User registerUser(@RequestBody User user) 
     {
-    	return user;
+    	return userService.addUser(user);
     }
     @GetMapping("/users")
     public List<User> getUsers()
@@ -65,5 +66,10 @@ public class UserController {
     public User updateUser(@PathVariable Long id,@RequestBody User updatedUser)
     {
         return userService.updateUser(id, updatedUser);
+    }
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest loginRequest) 
+    {
+    	return userService.login(loginRequest.getEmail(),loginRequest.getPassword());
     }
 }		
