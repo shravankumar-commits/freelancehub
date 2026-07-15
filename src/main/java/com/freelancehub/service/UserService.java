@@ -45,15 +45,17 @@ public class UserService
 	}
 	public String login(String email, String password)
 	{
-	    System.out.println("Email = " + email);
-	    System.out.println("Password = " + password);
+	   //System.out.println("Email = " + email);
+	   // System.out.println("Password = " + password);
 
 	    User user = userRepository.findByEmail(email)
 	            .orElseThrow(() -> new RuntimeException("User not found"));
 
-	    System.out.println("DB User = " + user.getEmail());
-
-	    if(!passwordEncoder.matches(password, user.getPassword()))
+	  //  System.out.println("DB User = " + user.getEmail());
+	    	boolean result =passwordEncoder.matches(password, user.getPassword());
+	    	//System.out.println("Password Match"+ result);
+	    	
+	    if(!result)
 	    {
 	        //throw new RuntimeException("Invalid password");
 	    	return "Invalid Password";
