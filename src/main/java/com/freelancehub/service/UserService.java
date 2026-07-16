@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.freelancehub.model.User;
 import com.freelancehub.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import com.freelancehub.jwt.Jwtutil;
 @Service
 public class UserService
 {
@@ -14,6 +14,8 @@ public class UserService
 	private UserRepository userRepository;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private Jwtutil jwtutil;
 	public List<User>getAllUsers()
 	{
 		return userRepository .findAll();
@@ -61,6 +63,6 @@ public class UserService
 	    	return "Invalid Password";
 	    }
 
-	    return "Login Successful";
+	    return jwtutil.generateToken(user.getEmail());
 	}
 }
