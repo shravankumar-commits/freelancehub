@@ -10,27 +10,18 @@ import com.freelancehub.service.UserService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import com.freelancehub.dto.LoginRequest;
+import com.freelancehub.dto.LoginResponse;
+
 import jakarta.validation.Valid;
 import java.util.*;
-
 @RestController
 public class UserController {
-	/*@GetMpping("/register")
-	public User registerUser(@RequestBody User user) 
-	{
-		return user;
-	}*/
 	@Autowired
 	private UserService userService;
     @GetMapping("/hello")
     public String hello() {
         return "Welcome to FreelanceHub!";
     }
-    //@GetMapping("/users")
-    //public List<User> getUser() 
-    //{
-    	//return userService.getAllUsers();
-    //}
     @PostMapping ("/register")
     public User registerUser(@RequestBody User user) 
     {
@@ -39,17 +30,13 @@ public class UserController {
     @GetMapping("/users")
     public List<User> getUsers()
     {
-    	/*return Arrays.asList(
-    			new User(1L,"ShravanKumar","Java Dev"),
-    			new User(2L,"Harsha","FrontendDev"),
-    			new User(3L,"Aksthith","Backend Dev"));*/
+    	
     	return userService.getAllUsers();
     }
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable Long id) 
     {
 
-       // return userService.getUserById(id);
     	return userService.getUserById(id);
     }
     @PostMapping("/users")
@@ -68,7 +55,7 @@ public class UserController {
         return userService.updateUser(id, updatedUser);
     }
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest) 
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) 
     {
     	return userService.login(loginRequest.getEmail(),loginRequest.getPassword());
     }

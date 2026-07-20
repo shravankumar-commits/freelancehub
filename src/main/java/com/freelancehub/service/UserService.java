@@ -7,6 +7,7 @@ import com.freelancehub.model.User;
 import com.freelancehub.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.freelancehub.jwt.Jwtutil;
+import com.freelancehub.dto.LoginResponse;
 @Service
 public class UserService
 {
@@ -45,24 +46,19 @@ public class UserService
 
 	    return userRepository.save(existingUser);
 	}
-	public String login(String email, String password)
+	public LoginResponse login(String email, String password)
 	{
-	   //System.out.println("Email = " + email);
-	   // System.out.println("Password = " + password);
-
-	    User user = userRepository.findByEmail(email)
+		User user = userRepository.findByEmail(email)
 	            .orElseThrow(() -> new RuntimeException("User not found"));
 
-	  //  System.out.println("DB User = " + user.getEmail());
 	    	boolean result =passwordEncoder.matches(password, user.getPassword());
 	    	//System.out.println("Password Match"+ result);
 	    	
 	    if(!result)
 	    {
-	        //throw new RuntimeException("Invalid password");
-	    	return "Invalid Password";
-	    }
+	    	return new LoginResponse(null, "Invalid Password",null,null,null);	    }
 
-	    return jwtutil.generateToken(user.getEmail());
+	    String token = jwtutil.generateToken(user.getEmail());
+	    return new LoginResponse(token, "Login Successful",user.getName(),user.getEmail(),user.getRole());
 	}
 }
