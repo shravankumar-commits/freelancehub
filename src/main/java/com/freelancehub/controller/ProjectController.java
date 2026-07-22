@@ -7,26 +7,27 @@ import com.freelancehub.service.ProjectService;
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping("/projects")
 public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
-	 @GetMapping("/projects")
+	 @GetMapping
 	    public List<Project> getProjects() {
 	        return projectService.getAllProjects();
 	    }
 	 	
-	 @PostMapping("/projects")
+	 @PostMapping
 	 public Project addProject(@Valid @RequestBody Project project) {
 	     return projectService.addProject(project);
 	 }
 	    
 	    
-	    @GetMapping("/projects/{id}")
+	    @GetMapping("/{id}")
 	    public Project getProject(@PathVariable Long id) 
 	    {
 	    	return projectService.getProjectById(id);
 	    }
-	    @PutMapping("/projects/{id}")
+	    @PutMapping("/{id}")
 	    public Project updateProject(
 	            @PathVariable Long id,
 	            @RequestBody Project project) {
@@ -34,7 +35,7 @@ public class ProjectController {
 	        project.setId(id);
 	        return projectService.addProject(project);
 	    }
-	    @DeleteMapping("/projects/{id}")
+	    @DeleteMapping("/{id}")
 	    public String deleteProject(@PathVariable Long id)
 	    {
 	        projectService.deleteProject(id);

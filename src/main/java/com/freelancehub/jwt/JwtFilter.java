@@ -45,6 +45,7 @@ public class JwtFilter extends OncePerRequestFilter
 		 jwt = authHeader.substring(7);
 		 String email = jwtUtil.extractEmail(jwt);
 		 System.out.println("Email from Jwt = " + email);
+		 
 		 UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
 		 UsernamePasswordAuthenticationToken authentication =
 			        new UsernamePasswordAuthenticationToken(
@@ -53,6 +54,8 @@ public class JwtFilter extends OncePerRequestFilter
 			                userDetails.getAuthorities());
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
+			System.out.println("Authentication Stored Successfully");
+			System.out.println("Authorities = " + userDetails.getAuthorities());
 	 }
 	 	filterChain.doFilter(request,response);
 	 }

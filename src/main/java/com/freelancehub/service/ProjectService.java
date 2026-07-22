@@ -6,6 +6,8 @@ import com.freelancehub.model.Project;
 import com.freelancehub.repository.ProjectRepository;
 import com.freelancehub.model.User;
 import com.freelancehub.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 @Service
 public class ProjectService {
 @Autowired
@@ -19,10 +21,13 @@ private UserRepository userRepository;
 
 public Project addProject(Project project)
 {
-    Long userId = project.getUser().getId();
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    User user = userRepository.findById(userId)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+	String email = authentication.getName();
+
+	System.out.println("Logged in user: " + email);
+	User user = userRepository.findByEmail(email)
+	        .orElseThrow(() -> new RuntimeException("User not found"));
 
     project.setUser(user);
 
