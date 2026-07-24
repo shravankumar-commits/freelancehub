@@ -14,7 +14,18 @@ public class ProjectService {
 private ProjectRepository projectRepository;
 public List<Project> getAllProjects()
 {
-    return projectRepository.findAll();
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String email = authentication.getName();
+    
+    User user = userRepository.findByEmail(email)
+    		.orElseThrow(()-> new RuntimeException("User not found"));
+    		
+    		if(user.getRole().equals("CLIENT"))
+    		{
+    			return projectRepository.findByuser(user);
+    		}
+    		return projectRepository.findAll();
+    
 }
 @Autowired
 private UserRepository userRepository;

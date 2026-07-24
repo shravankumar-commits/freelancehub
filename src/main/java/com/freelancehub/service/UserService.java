@@ -50,8 +50,16 @@ public class UserService
 	{
 		User user = userRepository.findByEmail(email)
 	            .orElseThrow(() -> new RuntimeException("User not found"));
+		System.out.println("Entered Password : " + password);
+		System.out.println("Stored Password  : " + user.getPassword());
 
-	    	boolean result =passwordEncoder.matches(password, user.getPassword());
+		boolean result = passwordEncoder.matches(password, user.getPassword());
+
+		System.out.println("Password Match : " + result);
+	    	System.out.println("Entered Password : " + password);
+	    	System.out.println("Stored Password  : " + user.getPassword());
+	    	System.out.println("Password Match   : " + result);
+		//boolean result =passwordEncoder.matches(password, user.getPassword());
 	    	//System.out.println("Password Match"+ result);
 	    	
 	    if(!result)
