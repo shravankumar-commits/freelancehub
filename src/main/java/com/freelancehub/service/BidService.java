@@ -9,6 +9,8 @@ import com.freelancehub.model.Project;
 import com.freelancehub.repository.ProjectRepository;
 import com.freelancehub.model.User;
 import com.freelancehub.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 @Service
 public class BidService {
 
@@ -32,11 +34,23 @@ public class BidService {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
 
-        Long userId = bid.getUser().getId();
+        //Long userId = bid.getUser().getId();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        User user = userRepository.findById(userId)
+        String email = authentication.getName();
+
+        //System.out.println("Logged in Freelancer : " + email);
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
+        System.out.println("Project ID = " + project.getId());
+        System.out.println("User ID = " + user.getId());
+        System.out.println("Already Exists = " +
+                bidRepository.existsByProjectAndUser(project, user));
+        if(bidRepository.existsByProjectAndUser(project, user)) 
+        {
+        	//return bid;
+        	throw new RuntimeException("you have already placed a bid on this project.");
+        }
         bid.setProject(project);
         bid.setUser(user);
 

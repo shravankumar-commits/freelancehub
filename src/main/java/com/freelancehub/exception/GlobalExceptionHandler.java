@@ -3,6 +3,7 @@ import java.util.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.http.ResponseEntity;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -21,5 +22,14 @@ public class GlobalExceptionHandler {
 	      });
 
 	    return errors;
+	}
+	@ExceptionHandler(RuntimeException.class)
+	//@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
+
+	    Map<String, String> error = new LinkedHashMap<>();
+	    error.put("message", ex.getMessage());
+
+	    return ResponseEntity.badRequest().body(error);
 	}
 }

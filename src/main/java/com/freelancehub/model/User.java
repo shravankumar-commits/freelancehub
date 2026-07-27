@@ -25,6 +25,7 @@ public class User {
 	private List<Project> projects;
 	@Column(unique = true)
 	@NotBlank(message = "Email cannot be empty")
+	//@Column(unique = true)
 	private String email;
 	@NotBlank(message = "Password cannot be empty")
 	private String password;
