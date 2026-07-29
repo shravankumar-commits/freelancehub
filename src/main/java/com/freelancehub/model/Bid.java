@@ -17,6 +17,7 @@ public class Bid {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	private String status;
 	public Bid() 
 	{
 		
@@ -66,5 +67,12 @@ public class Bid {
 		public void setUser(User user) 
 		{
 			this.user=user;
+		}
+		public String getStatus() 
+		{
+			return status;
+		}
+		public void setStatus(String status){
+			this .status= status;
 		}
 }

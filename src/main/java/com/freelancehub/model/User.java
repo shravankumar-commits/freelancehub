@@ -10,6 +10,7 @@ import java.util.List;
 import jakarta.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List; 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 
 @Table(name="users")
@@ -26,11 +27,13 @@ public class User {
 	@Column(unique = true)
 	@NotBlank(message = "Email cannot be empty")
 	//@Column(unique = true)
+	//@JsonIgnore
 	private String email;
 	@NotBlank(message = "Password cannot be empty")
-	private String password;
-	@OneToMany(mappedBy = "user")
 	@JsonIgnore
+	private String password;
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
 	private List <Bid>bids;
 	public User() 
 	{
@@ -40,8 +43,8 @@ public class User {
 	{
 		this.id=id;
 		this.name=name;
-		this.email=email;
-		this.password=password;
+		//this.email=email;
+		//this.password=password;
 		this.role=role;
 		
 	}

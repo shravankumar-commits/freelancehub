@@ -53,7 +53,7 @@ public class BidService {
         }
         bid.setProject(project);
         bid.setUser(user);
-
+        bid.setStatus("PENDING");
         return bidRepository.save(bid);
     }
 
@@ -73,5 +73,65 @@ public class BidService {
     public List<Bid> getBidsByProjectId(Long projectId)
     {
         return bidRepository.findByProjectId(projectId);
+    }
+    public List<Bid> getMyProjectBids() {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.getRole().equals("CLIENT")) {
+            throw new RuntimeException("Only clients can view project bids.");
+        }
+
+        return bidRepository.findByProjectUser(user);
+    }
+    public Bid  acceptBid(Long bidId) 
+    {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        
+        User loggedInUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if(!loggedInUser.getRole().equals("CLIENT")) 
+        {
+        	throw new RuntimeException("Only clients can accept bids");
+        }
+    	Bid acceptedBid = bidRepository.findById(bidId)
+    			.orElseThrow(()->new RuntimeException("Bid not found"));
+    	//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	    
+    	Project project = acceptedBid.getProject();
+    	if(!project.getUser().getId().equals(loggedInUser.getId())) 
+    	{
+    		throw new RuntimeException("You can only accept bids for your own projects.");
+    	}
+    	
+    	/*if (project.getUser() == null || !project.getUser().getId().equals(loggedInUser.getId())) {
+            throw new RuntimeException("You are not authorized to accept this bid");
+        }*/
+    	List<Bid>bids = bidRepository.findByProject(project);
+    	for(Bid bid : bids) 
+    	{
+    		if(bid.getId().equals(bidId))
+    		{
+    			bid.setStatus("ACCEPTED");
+    		}
+    		else 
+    		{
+    			bid.setStatus("REJECTED");
+    		}
+    		bidRepository.save(bid);
+    	}
+    	project.setStatus("IN_PROGRESS");
+    	project.setAssignedFreelancer(acceptedBid.getUser());
+    	
+    	projectRepository.save(project);
+    	
+    	return acceptedBid;
     }
 }

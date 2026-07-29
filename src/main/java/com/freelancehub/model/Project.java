@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "projects")
 public class Project {
@@ -31,6 +31,10 @@ private User user;
 @JsonIgnore
 @OneToMany(mappedBy = "project")
 private List<Bid> bids;
+private String status;
+@ManyToOne
+@JoinColumn(name = "assigned_freelancer_id")
+private User assignedFreelancer;
 public Project() 
 {
 }
@@ -91,6 +95,21 @@ public List<Bid> getBids()
 public void setBids(List<Bid> bids)
 {
     this.bids = bids;
+}
+public String getStatus() {
+    return status;
+}
+
+public void setStatus(String status) {
+    this.status = status;
+}
+
+public User getAssignedFreelancer() {
+    return assignedFreelancer;
+}
+
+public void setAssignedFreelancer(User assignedFreelancer) {
+    this.assignedFreelancer = assignedFreelancer;
 }
 }
 

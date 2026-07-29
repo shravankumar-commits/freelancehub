@@ -40,4 +40,8 @@ public class ProjectController {
 	        projectService.deleteProject(id);
 	        return "Project deleted successfully";
 	    }
+	    @PutMapping("/{id}/complete")
+	    public Project completeProject(@PathVariable Long id) {
+	        return projectService.completeProject(id);
+	    }
 }

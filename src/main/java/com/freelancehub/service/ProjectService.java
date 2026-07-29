@@ -39,7 +39,8 @@ public Project addProject(Project project)
 	System.out.println("Logged in user: " + email);
 	User user = userRepository.findByEmail(email)
 	        .orElseThrow(() -> new RuntimeException("User not found"));
-
+	
+	project .setStatus("OPEN");
     project.setUser(user);
 
     return projectRepository.save(project);
@@ -53,5 +54,13 @@ public Project getProjectById(Long id)
 public void deleteProject(Long id)
 {
     projectRepository.deleteById(id);
+}
+public Project completeProject(Long projectId) 
+{
+	Project project = projectRepository.findById(projectId)
+			.orElseThrow(()->new RuntimeException("Project not found"));
+	project.setStatus("COMPLETED");
+	projectRepository.save(project);
+	return project;
 }
 }

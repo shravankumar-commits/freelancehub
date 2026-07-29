@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.freelancehub.model.Bid;
 import com.freelancehub.service.BidService;
 
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 public class BidController {
 
@@ -44,5 +46,15 @@ public class BidController {
     public List<Bid> getBidsByProject(@PathVariable Long projectId)
     {
         return bidService.getBidsByProjectId(projectId);
+    }
+    @GetMapping("/my-project-bids")
+    public List<Bid> getMyProjectBids()
+  	{
+    			return bidService.getMyProjectBids();
+   	}
+    @PutMapping("/bids/{bidId}/accept")
+    public Bid acceptBid(@PathVariable Long bidId)
+    {
+    	return bidService.acceptBid(bidId);
     }
 }
