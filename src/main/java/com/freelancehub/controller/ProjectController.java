@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import com.freelancehub.model.Project;
 import com.freelancehub.service.ProjectService;
 import jakarta.validation.Valid;
+import com.freelancehub.dto.ProjectResponseDTO;
 
 @RestController
 @RequestMapping("/projects")
@@ -22,7 +23,7 @@ public class ProjectController {
 	    
 	    
 	    @GetMapping("/{id}")
-	    public Project getProject(@PathVariable Long id) 
+	    public ProjectResponseDTO getProject(@PathVariable Long id) 
 	    {
 	    	return projectService.getProjectById(id);
 	    }

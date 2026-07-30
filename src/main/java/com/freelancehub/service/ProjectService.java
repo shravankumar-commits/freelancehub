@@ -8,6 +8,8 @@ import com.freelancehub.model.User;
 import com.freelancehub.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import com.freelancehub.dto.ProjectResponseDTO;
+
 @Service
 public class ProjectService {
 @Autowired
@@ -46,10 +48,25 @@ public Project addProject(Project project)
     return projectRepository.save(project);
 }
 
-public Project getProjectById(Long id)
+public ProjectResponseDTO getProjectById(Long id)
 {
-    return projectRepository.findById(id)
+     Project project= projectRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Project not found"));
+    
+     ProjectResponseDTO dto = new ProjectResponseDTO();
+     dto.setId(project.getId());
+     dto.setTitle(project.getTitle());
+     dto.setDescription(project.getDescription());
+     dto.setBudget(project.getBudget());
+     dto.setStatus(project.getStatus());
+
+     if (project.getAssignedFreelancer() != null) {
+         dto.setAssignedFreelancer(
+                 project.getAssignedFreelancer().getName());
+     }
+
+     return dto;
+     
 }
 public void deleteProject(Long id)
 {
@@ -57,8 +74,24 @@ public void deleteProject(Long id)
 }
 public Project completeProject(Long projectId) 
 {
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	
+	String email = authentication.getName();
+	
+	User loggedInUser = userRepository.findByEmail(email)
+			.orElseThrow(()->new RuntimeException("User not Found"));
+	
 	Project project = projectRepository.findById(projectId)
 			.orElseThrow(()->new RuntimeException("Project not found"));
+	
+	if(project.getAssignedFreelancer()== null) {
+		throw new RuntimeException("No Freelancer has been assigned to this project. ");
+	}
+	
+	if(!project.getAssignedFreelancer().getId().equals(loggedInUser.getId())) {
+		throw new RuntimeException("Only the assigned Freelancer can complete this project. ");
+		
+	}
 	project.setStatus("COMPLETED");
 	projectRepository.save(project);
 	return project;
