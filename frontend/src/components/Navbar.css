@@ -1,0 +1,31 @@
+nav{
+    background-color: #1f2937;
+    color: white;
+
+    display:flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px 30px;
+}
+nav h2{
+    margin :0;
+}
+nav div{
+    background-color: #2563eb;
+    
+    color:white;
+
+    border: none;
+
+    padding: 8px 15px;
+    
+    cursor:pointer;
+
+
+}
+nav button:hover{
+    background-color: #1d4ed8;
+}
