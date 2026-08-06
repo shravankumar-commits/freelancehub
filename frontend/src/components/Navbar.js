@@ -1,18 +1,28 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
+
     return (
-        <nav>
-            <h2> FreelanceHub</h2>
-            
+
+        <nav className="navbar">
+
+            <h2>FreelanceHub</h2>
+
             <div>
-            <button>Home</button>
-            <button>Projects</button>
-            <button>Login</button>
-            <button>Register</button>
+
+                <Link to="/">Home</Link>
+
+                <Link to="/login">Login</Link>
+
+                <Link to="/register">Register</Link>
+
             </div>
 
         </nav>
+
     );
+
 }
+
 export default Navbar;

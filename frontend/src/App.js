@@ -1,16 +1,23 @@
 import Navbar from "./components/Navbar";
 
-function App(){
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+import { Routes, Route } from "react-router-dom";
+
+function App() {
   return (
-    <div> 
+    <div>
       <Navbar />
 
-      <hr />
-
-      <h2>Welcome toFreelanceHub </h2>
-      <p>A platform where clients can post s project sand freelancers can bid on the projects. </p>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </div>
-  )
-
+  );
 }
+
 export default App;
