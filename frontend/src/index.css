@@ -11,3 +11,107 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.features {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.features h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.feature-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.categories {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f5f7fa;
+}
+
+.categories h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.category-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.cta {
+    padding: 70px 20px;
+    text-align: center;
+    background-color: #1976d2;
+    color: white;
+}
+
+.cta h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.cta p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.cta button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    background-color: white;
+    color: #1976d2;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cta button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    background-color: white;
+    color: #1976d2;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cta button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    background-color: white;
+    color: #1976d2;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+ .cta button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    background-color: white;
+    color: #1976d2;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cta button:hover {
+    transform: scale(1.05);
+    background-color: #f0f0f0;
+}
