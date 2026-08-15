@@ -1,35 +1,62 @@
 import { useNavigate } from "react-router-dom";
 
+import Hero from "../components/Hero";
+import CategoryCard from "../components/CategoryCard";
+import FeatureCard from "../components/FeatureCard";
+import Footer from "../components/Footer";
+
 function Home() {
 
     const navigate = useNavigate();
+
     const name = localStorage.getItem("name");
     const email = localStorage.getItem("email");
     const role = localStorage.getItem("role");
-    
-    const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("name");
-    localStorage.removeItem("email");
-    localStorage.removeItem("role");
 
-    navigate("/login");
-};
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("name");
+        localStorage.removeItem("email");
+        localStorage.removeItem("role");
+
+        navigate("/login");
+    };
+
     return (
-        
         <div>
 
-            <h1>Welcome, {name}!</h1>
+            <Hero />
 
-            <p>Email: {email}</p>
+            <div className="welcome-section">
+    <h2>Welcome, {name}!</h2>
 
-            <p>Role: {role}</p>
+    <p>Email: {email}</p>
 
-            <button onClick={handleLogout}>
-                Logout
-            </button>
+    <p>Role: {role}</p>
+
+    <button onClick={handleLogout}>
+        Logout
+    </button>
+</div>
+           <section className="categories">
+    <h2>Popular Categories</h2>
+
+    <div className="category-container">
+        <CategoryCard />
+    </div>
+</section>
+
+<section className="features">
+    <h2>Why Choose FreelanceHub?</h2>
+
+    <div className="feature-container">
+        <FeatureCard />
+    </div>
+</section>
+
+<Footer />
+
         </div>
-        
     );
 }
 

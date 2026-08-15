@@ -1,26 +1,19 @@
 .feature-card {
     width: 250px;
     padding: 25px;
-    text-align: center;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.feature-icon {
-    font-size: 35px;
-    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
 }
 
 .feature-card h3 {
+    font-size: 20px;
     margin-bottom: 10px;
 }
 
 .feature-card p {
-    color: #666;
+    font-size: 15px;
+    color: #555;
     line-height: 1.5;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
 }

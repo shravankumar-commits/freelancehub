@@ -30,7 +30,7 @@ public class User {
 	//@JsonIgnore
 	private String email;
 	@NotBlank(message = "Password cannot be empty")
-	@JsonIgnore
+	//@JsonIgnore
 	private String password;
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")

@@ -115,3 +115,33 @@ code {
     transform: scale(1.05);
     background-color: #f0f0f0;
 }
+.welcome-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: white;
+}
+
+.welcome-section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.welcome-section p {
+    font-size: 18px;
+    margin: 10px;
+}
+
+.welcome-section button {
+    padding: 10px 25px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1976d2;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.welcome-section button:hover {
+    opacity: 0.85;
+}

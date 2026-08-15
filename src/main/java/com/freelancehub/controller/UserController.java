@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import com.freelancehub.dto.LoginRequest;
 import com.freelancehub.dto.LoginResponse;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import jakarta.validation.Valid;
 import java.util.*;
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
     @GetMapping("/hello")
@@ -23,7 +25,7 @@ public class UserController {
         return "Welcome to FreelanceHub!";
     }
     @PostMapping ("/register")
-    public User registerUser(@RequestBody User user) 
+    public User registerUser( @Valid @RequestBody User user) 
     {
     	return userService.addUser(user);
     }

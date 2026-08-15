@@ -9,11 +9,10 @@
     margin-bottom: 20px;
 }
 
-.hero p{
-    font-size: 42px;
-    color:#555;
+.hero p {
+    font-size: 18px;
+    color: #555;
     margin-bottom: 30px;
-
 }
 
 .hero button {
